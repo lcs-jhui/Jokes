@@ -15,7 +15,7 @@ struct JokeView: View {
     @State var punchLineOpacity = 0.0
     
     //The current joke to display
-    @State var currentJoke = exampleJoke
+    @State var currentJoke: Joke?
     
     //MARK: Computed Properties
     var body: some View {
@@ -23,31 +23,41 @@ struct JokeView: View {
             
             VStack{
                 
-                Text(currentJoke.setup)
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                
-                Button(action: {
-                    withAnimation(.easeIn(duration: 1.0)){
-                        punchLineOpacity = 1.0
-                    }
-                }, label: {
-                    Image(systemName: "arrow.down.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40)
-                        .tint(.black)
+                if let currentJoke = currentJoke {
                     
-                })
-                
-                Text(currentJoke.punchline)
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                    .opacity(punchLineOpacity)
-                
+                    //Show the joke, if it can be unwrapped (if currentJoke is not nil)
+                    Text(currentJoke.setup)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                    
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 1.0)){
+                            punchLineOpacity = 1.0
+                        }
+                    }, label: {
+                        Image(systemName: "arrow.down.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40)
+                            .tint(.black)
+                        
+                    })
+                    
+                    Text(currentJoke.punchline)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .opacity(punchLineOpacity)
+                    
+                } else {
+                    //Show a spinning wheel indicator until the joke is loaded
+                    ProgressView()
+                }
             }
-            .padding()
             .navigationTitle("Random Jokes")
+        }
+        //Create an asynchronus task to be performed as this view appears
+        .task {
+            currentJoke = await NetworkService.fetch()
         }
     }
 }

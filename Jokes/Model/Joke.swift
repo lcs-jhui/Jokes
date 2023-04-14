@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Joke: Identifiable {
+struct Joke: Identifiable, Codable {
     let type: String
     let setup: String
     let punchline: String
