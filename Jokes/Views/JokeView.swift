@@ -25,7 +25,9 @@ struct JokeView: View {
                     .multilineTextAlignment(.center)
                 
                 Button(action: {
-                    punchLineOpacity = 1.0
+                    withAnimation(.easeIn(duration: 1.0)){
+                        punchLineOpacity = 1.0
+                    }
                 }, label: {
                     Image(systemName: "arrow.down.circle.fill")
                         .resizable()
