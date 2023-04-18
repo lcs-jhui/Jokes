@@ -75,6 +75,8 @@ struct JokeView: View {
                                             currentJoke = nil
                                         }
                                         currentJoke = await NetworkService.fetch()
+                                        
+                                        savedToDatabase = false
                                     }
                                 }, label: {
                                     Text("Fetch another one")
@@ -123,6 +125,8 @@ struct JokeView: View {
             }
         }
     }
+    
+    
 }
 
 struct JokeView_Previews: PreviewProvider {
