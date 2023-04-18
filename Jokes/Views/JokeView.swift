@@ -96,11 +96,17 @@ struct JokeView: View {
                 }, label: {
                     Text("Save for later")
                 })
+                //Diable button until punchline is shown
+                .disabled(punchLineOpacity == 0.0 ? true : false)
+                //Use another colour to differentiate from the other button
+                .tint(.green)
                 .buttonStyle(.borderedProminent)
+
                 
             }
-            .navigationTitle("Random Jokes")
             .padding()
+
+            .navigationTitle("Random Jokes")
         }
         //Create an asynchronus task to be performed as this view appears
         .task {
