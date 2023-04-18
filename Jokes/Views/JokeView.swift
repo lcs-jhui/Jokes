@@ -77,6 +77,7 @@ struct JokeView: View {
                 
             }
             .navigationTitle("Random Jokes")
+            .padding()
         }
         //Create an asynchronus task to be performed as this view appears
         .task {
