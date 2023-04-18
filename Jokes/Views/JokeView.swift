@@ -21,6 +21,9 @@ struct JokeView: View {
     //The current joke to display
     @State var currentJoke: Joke?
     
+    //Track whether current joke has been saved to database
+    @State var savedDatabase = false
+    
     //MARK: Computed Properties
     var body: some View {
         NavigationView{
@@ -90,6 +93,9 @@ struct JokeView: View {
                                                currentJoke.type,
                                                currentJoke.setup,
                                                currentJoke.punchline)
+                                
+                                //Record that this joke has been saved
+                                savedDatabase = true
                             }
                         }
                     }
@@ -98,6 +104,8 @@ struct JokeView: View {
                 })
                 //Diable button until punchline is shown
                 .disabled(punchLineOpacity == 0.0 ? true : false)
+                //Once saved, disable the button so we can't save the joke twice
+                .disabled(savedDatabase == true ? true : false)
                 //Use another colour to differentiate from the other button
                 .tint(.green)
                 .buttonStyle(.borderedProminent)
