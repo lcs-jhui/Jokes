@@ -22,6 +22,8 @@ struct JokesApp: App {
                         Label("Favourites", systemImage: "face.smiling")
                     }
             }
+            //Make the database avaiable to all child views through the environment
+            .environment(\.blackbirdDatabase, AppDatabase.instance)
         }
     }
 }
